@@ -1,0 +1,26 @@
+{
+  "name": "arus",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ARUS — Explicit, linear, V8-optimized backend execution framework",
+  "author": "Muhammad Imam Rozali <Nusa Innovation | muh.imamrozali@gmail.com>",
+  "license": "MIT",
+  "packageManager": "npm@9.12.0",
+  "workspaces": [
+    "packages/*",
+    "benchmarks"
+  ],
+  "scripts": {
+    "build": "npm -r build",
+    "dev": "npm -r dev",
+    "clean": "npm -r clean",
+    "lint": "npm -r lint",
+    "test": "npm -r test",
+    "bench": "npm --filter benchmarks start"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.5.1"
+  }
+}
