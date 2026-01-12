@@ -1,0 +1,48 @@
+{
+  "name": "@arusjs/adapter-http",
+  "version": "0.0.1-alpha.0",
+  "description": "ARUSJS HTTP Adapter — Integrates ARUSJS Core with Node.js native HTTP/HTTPS server",
+  "author": "Muhammad Imam Rozali <Nusa Innovation | muh.imamrozali@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "arusjs",
+    "arusjs-framework",
+    "http",
+    "adapter",
+    "node",
+    "nodejs",
+    "high-performance",
+    "explicit",
+    "no-magic",
+    "server"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean --minify",
+    "dev": "tsup src/index.ts --watch --format esm",
+    "clean": "rm -rf dist",
+    "test": "echo \"no tests (adapter deterministic)\""
+  },
+  "dependencies": {
+    "@arusjs/core": "^0.1.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
