@@ -1,19 +1,19 @@
-# @arus/adapter-http
+# @arusjs/adapter-http
 
 Node.js HTTP adapter.
 
 ## Installation
 
 ```bash
-npm install @arus/core @arus/adapter-http
+npm install @arusjs/core @arusjs/adapter-http
 ```
 
 ## Usage
 
 ```typescript
-import { createServer } from 'http';
-import { Pipeline, Context } from '@arus/core';
-import { HttpAdapter } from '@arus/adapter-http';
+import { createServer } from "http";
+import { Pipeline, Context } from "@arusjs/core";
+import { HttpAdapter } from "@arusjs/adapter-http";
 
 const pipeline = new Pipeline([handler]);
 const adapter = new HttpAdapter(pipeline);

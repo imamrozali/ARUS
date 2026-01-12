@@ -1,19 +1,19 @@
-# @arus/adapter-nest
+# @arusjs/adapter-nest
 
 NestJS adapter.
 
 ## Installation
 
 ```bash
-npm install @arus/core @arus/adapter-nest @nestjs/core @nestjs/common reflect-metadata
+npm install @arusjs/core @arusjs/adapter-nest @nestjs/core @nestjs/common reflect-metadata
 ```
 
 ## Usage
 
 ```typescript
-import { Injectable } from '@nestjs/common';
-import { Pipeline } from '@arus/core';
-import { NestAdapter } from '@arus/adapter-nest';
+import { Injectable } from "@nestjs/common";
+import { Pipeline } from "@arusjs/core";
+import { NestAdapter } from "@arusjs/adapter-nest";
 
 @Injectable()
 export class ArusService {

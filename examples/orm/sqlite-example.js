@@ -1,0 +1,98 @@
+// examples/orm/sqlite-example.js - Complete ARUS ORM Example with SQLite
+
+import { table, DB, SqliteAdapter, transaction } from '@arusjs/orm';
+import { createPipeline } from '@arusjs/core';
+
+// Define schema
+const users = table('users', {
+  id: { type: 'number', primary: true },
+  name: { type: 'string' },
+  email: { type: 'string' },
+  age: { type: 'number' }
+});
+
+const posts = table('posts', {
+  id: { type: 'number', primary: true },
+  userId: { type: 'number' },
+  title: { type: 'string' },
+  content: { type: 'string' }
+});
+
+// Setup DB
+const db = new DB(new SqliteAdapter('./example.db'));
+await db.connect();
+
+console.log('=== ARUS ORM SQLite Example ===\n');
+
+// 1. Create tables (raw SQL for setup)
+await db.adapter.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, age INTEGER)');
+await db.adapter.execute('CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT, userId INTEGER, title TEXT, content TEXT)');
+
+// 2. Insert data
+console.log('Inserting users...');
+await db.insert(users, { name: 'Alice', email: 'alice@example.com', age: 25 }).execute();
+await db.insert(users, { name: 'Bob', email: 'bob@example.com', age: 30 }).execute();
+await db.insert(users, { name: 'Charlie', email: 'charlie@example.com', age: 35 }).execute();
+
+console.log('Inserting posts...');
+await db.insert(posts, { userId: 1, title: 'Hello World', content: 'My first post' }).execute();
+await db.insert(posts, { userId: 2, title: 'ORM Test', content: 'Testing ARUS ORM' }).execute();
+
+// 3. Select queries
+console.log('\n=== Select Queries ===');
+const allUsers = await db.select(users).execute();
+console.log('All users:', allUsers);
+
+const adultUsers = await db.select(users).where({ age: { $gte: 30 } }).execute();
+console.log('Adult users:', adultUsers);
+
+const userWithPosts = await db.select(users).where({ id: 1 }).execute();
+console.log('User with ID 1:', userWithPosts);
+
+// 4. Update
+console.log('\nUpdating user...');
+await db.update(users, { age: 26 }).where({ name: 'Alice' }).execute();
+const updatedUser = await db.select(users).where({ name: 'Alice' }).execute();
+console.log('Updated Alice:', updatedUser);
+
+// 5. Delete
+console.log('\nDeleting post...');
+await db.delete(posts).where({ title: 'ORM Test' }).execute();
+const remainingPosts = await db.select(posts).execute();
+console.log('Remaining posts:', remainingPosts);
+
+// 6. Transactions
+console.log('\n=== Transactions ===');
+await transaction(db, async (trx) => {
+  console.log('Starting transaction...');
+  await trx.insert(users, { name: 'Dave', email: 'dave@example.com', age: 40 }).execute();
+  await trx.insert(posts, { userId: 4, title: 'Transactional Post', content: 'Inside transaction' }).execute();
+  console.log('Transaction committed.');
+});
+
+// Verify transaction
+const newUsers = await db.select(users).execute();
+console.log('Users after transaction:', newUsers.length);
+
+// 7. ARUSJS Pipeline Integration
+console.log('\n=== ARUSJS Pipeline Integration ===');
+
+const pipeline = createPipeline([
+  async (ctx) => {
+    console.log('Pipeline: Fetching users...');
+    ctx.users = await ctx.db.select(users).execute();
+  },
+  async (ctx) => {
+    console.log('Pipeline: Processing users...');
+    ctx.adultUsers = ctx.users.filter(u => u.age >= 30);
+  }
+]);
+
+const result = await pipeline.execute({ db });
+console.log('Pipeline result - Adult users:', result.adultUsers);
+
+// Cleanup
+await db.disconnect();
+import fs from 'fs';
+fs.unlinkSync('./example.db');
+console.log('\nExample completed successfully!');

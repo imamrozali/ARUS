@@ -1,25 +1,25 @@
-# @arus/adapter-express
+# @arusjs/adapter-express
 
 Express.js adapter.
 
 ## Installation
 
 ```bash
-npm install @arus/core @arus/adapter-express express
+npm install @arusjs/core @arusjs/adapter-express express
 ```
 
 ## Usage
 
 ```typescript
-import express from 'express';
-import { Pipeline } from '@arus/core';
-import { ExpressAdapter } from '@arus/adapter-express';
+import express from "express";
+import { Pipeline } from "@arusjs/core";
+import { ExpressAdapter } from "@arusjs/adapter-express";
 
 const pipeline = new Pipeline([handler]);
 const adapter = new ExpressAdapter(pipeline);
 
 const app = express();
-app.use('/api', (req, res) => adapter.handle(req, res));
+app.use("/api", (req, res) => adapter.handle(req, res));
 ```
 
 ## API

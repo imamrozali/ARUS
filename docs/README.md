@@ -1,10 +1,10 @@
-# ARUS Documentation
+# ARUSJS Documentation
 
-Welcome to the ARUS framework documentation.
+Welcome to the ARUSJS framework documentation.
 
 ## Overview
 
-ARUS is a high-performance, explicit backend framework for TypeScript that treats HTTP requests as data flowing through functions.
+ARUSJS is a high-performance, explicit backend framework for TypeScript that treats HTTP requests as data flowing through functions.
 
 ## Getting Started
 
@@ -19,14 +19,16 @@ See the [main README](../README.md) for quick start guides and philosophy.
 ## Packages
 
 ### Core Packages
-- [@arus/core](packages/core.md) - Core runtime primitives
-- [@arus/common](packages/common.md) - Shared utilities and types
+
+- [@arusjs/core](packages/core.md) - Core runtime primitives
+- [@arusjs/common](packages/common.md) - Shared utilities and types
 
 ### Adapters
-- [@arus/adapter-http](adapters/http.md) - Node.js HTTP adapter
-- [@arus/adapter-fetch](adapters/fetch.md) - Fetch API adapter
-- [@arus/adapter-express](adapters/express.md) - Express adapter
-- [@arus/adapter-nest](adapters/nest.md) - NestJS adapter
+
+- [@arusjs/adapter-http](adapters/http.md) - Node.js HTTP adapter
+- [@arusjs/adapter-fetch](adapters/fetch.md) - Fetch API adapter
+- [@arusjs/adapter-express](adapters/express.md) - Express adapter
+- [@arusjs/adapter-nest](adapters/nest.md) - NestJS adapter
 
 ## Development
 

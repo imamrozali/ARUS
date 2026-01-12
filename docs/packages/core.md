@@ -1,11 +1,11 @@
-# @arus/core
+# @arusjs/core
 
-Core runtime primitives for ARUS framework.
+Core runtime primitives for ARUSJS framework.
 
 ## Installation
 
 ```bash
-npm install @arus/core
+npm install @arusjs/core
 ```
 
 ## Overview

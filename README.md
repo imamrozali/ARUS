@@ -2,7 +2,7 @@
 
 > **Explicit. Predictable. Near the V8 HTTP performance ceiling.**
 
-ARUS is a minimal backend framework for TypeScript that treats HTTP requests as **data flowing through plain functions**.
+ARUSJS is a minimal backend framework for TypeScript that treats HTTP requests as **data flowing through plain functions**.
 It is designed for developers who want **full control, high performance, and zero magic**.
 
 No decorators.
@@ -18,7 +18,7 @@ Just a straight execution pipeline.
 
 Most backend frameworks trade performance and predictability for abstraction and convenience.
 
-ARUS makes the opposite trade:
+ARUSJS makes the opposite trade:
 
 - ✅ Explicit control over request flow
 - ✅ Stable performance characteristics
@@ -28,7 +28,7 @@ ARUS makes the opposite trade:
 - ❌ No implicit DI or decorators
 - ❌ No plugin magic
 
-ARUS sits **between Fastify and NestJS**:
+ARUSJS sits **between Fastify and NestJS**:
 
 - Closer to Fastify in performance
 - Closer to NestJS in structure
@@ -78,12 +78,12 @@ There are:
 
 ## Packages
 
-- [`@arus/core`](./packages/core) - Core runtime primitives
-- [`@arus/common`](./packages/common) - Shared utilities and types
-- [`@arus/adapter-http`](./packages/adapter-http) - Node.js HTTP adapter
-- [`@arus/adapter-fetch`](./packages/adapter-fetch) - Fetch API adapter
-- [`@arus/adapter-express`](./packages/adapter-express) - Express adapter
-- [`@arus/adapter-nest`](./packages/adapter-nest) - NestJS adapter
+- [`@arusjs/core`](./packages/core) - Core runtime primitives
+- [`@arusjs/common`](./packages/common) - Shared utilities and types
+- [`@arusjs/adapter-http`](./packages/adapter-http) - Node.js HTTP adapter
+- [`@arusjs/adapter-fetch`](./packages/adapter-fetch) - Fetch API adapter
+- [`@arusjs/adapter-express`](./packages/adapter-express) - Express adapter
+- [`@arusjs/adapter-nest`](./packages/adapter-nest) - NestJS adapter
 
 ## Documentation
 
@@ -145,7 +145,7 @@ const pipeline = new Pipeline([authHandler, businessLogic, responseHandler]);
 
 ### Error Model
 
-ARUS uses a **simple error short-circuit model**.
+ARUSJS uses a **simple error short-circuit model**.
 
 ```ts
 throw new ArusError("Invalid input", "VALIDATION_FAILED", 400);
@@ -186,7 +186,7 @@ If you need dynamic paths, parse them inside handlers.
 
 ## Runtime Support
 
-ARUS is **runtime-agnostic**.
+ARUSJS is **runtime-agnostic**.
 
 Supported:
 
@@ -201,7 +201,7 @@ This is achieved by keeping the core free of any transport or runtime dependenci
 
 ## Performance Philosophy
 
-ARUS is designed to operate **near the V8 HTTP performance ceiling**, not to win micro-benchmarks at all costs.
+ARUSJS is designed to operate **near the V8 HTTP performance ceiling**, not to win micro-benchmarks at all costs.
 
 Key design choices:
 
@@ -213,17 +213,17 @@ Key design choices:
 
 In practice:
 
-- ARUS performs **significantly faster than Express**
-- ARUS operates **close to high-performance frameworks** like Fastify for simple workloads
+- ARUSJS performs **significantly faster than Express**
+- ARUSJS operates **close to high-performance frameworks** like Fastify for simple workloads
 - Some micro-optimizations are intentionally avoided in favor of explicitness
 
-> ARUS prioritizes _predictability_ over absolute peak throughput.
+> ARUSJS prioritizes _predictability_ over absolute peak throughput.
 
 ---
 
-## What ARUS Is Not
+## What ARUSJS Is Not
 
-ARUS is **not**:
+ARUSJS is **not**:
 
 - A Fastify plugin ecosystem replacement
 - A decorator-heavy framework
@@ -241,9 +241,9 @@ You may prefer NestJS or Fastify.
 
 ---
 
-## Who ARUS Is For
+## Who ARUSJS Is For
 
-ARUS is ideal for:
+ARUSJS is ideal for:
 
 - Performance-conscious teams
 - Developers who understand Node/V8 fundamentals
@@ -257,20 +257,20 @@ ARUS is ideal for:
 ### Hello World with Node.js HTTP
 
 ```bash
-npm install @arus/core @arus/adapter-http
+npm install @arusjs/core @arusjs/adapter-http
 ```
 
 ```typescript
-import { createServer } from 'http';
-import { Pipeline, Context } from '@arus/core';
-import { HttpAdapter } from '@arus/adapter-http';
+import { createServer } from "http";
+import { Pipeline, Context } from "@arusjs/core";
+import { HttpAdapter } from "@arusjs/adapter-http";
 
 type MyContext = Context<{ url: string; method: string }, { body: string }>;
 
 const pipeline = new Pipeline<MyContext>([
   (ctx) => {
-    ctx.response.body = 'Hello, ARUS!';
-  }
+    ctx.response.body = "Hello, ARUS!";
+  },
 ]);
 
 const adapter = new HttpAdapter(pipeline);
@@ -280,22 +280,22 @@ const server = createServer((req, res) => {
 });
 
 server.listen(3000, () => {
-  console.log('ARUS server on port 3000');
+  console.log("ARUSJS server on port 3000");
 });
 ```
 
 ### Hello World with Fetch (Cloudflare Workers)
 
 ```typescript
-import { Pipeline, Context } from '@arus/core';
-import { FetchAdapter } from '@arus/adapter-fetch';
+import { Pipeline, Context } from "@arusjs/core";
+import { FetchAdapter } from "@arusjs/adapter-fetch";
 
 type MyContext = Context<{ url: string; method: string }, { body: string }>;
 
 const pipeline = new Pipeline<MyContext>([
   (ctx) => {
-    ctx.response.body = 'Hello, ARUS!';
-  }
+    ctx.response.body = "Hello, ARUS!";
+  },
 ]);
 
 const adapter = new FetchAdapter(pipeline);
@@ -303,13 +303,13 @@ const adapter = new FetchAdapter(pipeline);
 export default {
   fetch(request: Request): Promise<Response> {
     return adapter.handle(request);
-  }
+  },
 };
 ```
 
 ## Benchmarks
 
-ARUS achieves within ±5% of Fastify's hello-world latency and ±8% for JSON responses.
+ARUSJS achieves within ±5% of Fastify's hello-world latency and ±8% for JSON responses.
 
 See [benchmarks](./benchmarks) for details.
 
@@ -323,7 +323,7 @@ See [benchmarks](./benchmarks) for details.
 
 ## Contributing
 
-ARUS is designed for production use. Contributions welcome for adapters, docs, or optimizations.
+ARUSJS is designed for production use. Contributions welcome for adapters, docs, or optimizations.
 
 ## License
 
