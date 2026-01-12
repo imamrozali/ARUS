@@ -14,9 +14,6 @@ yarn-error.log*
 package-lock.json
 packages/*/package-lock.json
 
-# Source directories (only dist should be committed for packages)
-packages/*/src/
-
 # Runtime data
 pids
 *.pid
