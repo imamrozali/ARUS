@@ -1,6 +1,6 @@
 ---
 
-# ARUS
+## ARUS
 
 > **Explicit. Predictable. Near the V8 HTTP performance ceiling.**
 
